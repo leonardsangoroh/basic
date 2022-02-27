@@ -24,3 +24,4 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     echo "This is the contact page";
 });
+
