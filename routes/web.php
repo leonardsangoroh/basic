@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/about', function () {
+    echo "This is About Page";
+});
+
+Route::get('/contact', function () {
+    echo "This is the contact page";
+});
