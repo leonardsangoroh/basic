@@ -18,10 +18,10 @@ Route::get('/', function () {
 });
 
 Route::get('/about', function () {
-    echo "This is About Page";
+    return view ('about');
 });
 
 Route::get('/contact', function () {
-    echo "This is the contact page";
+    return view ('contact');
 });
 
