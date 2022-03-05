@@ -18,9 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function () {
+    echo "This is the home page";
+});
+
 Route::get('/about', function () {
     return view ('about');
-});
+})->middleware('check');
 
 Route::get('/contact',[ContactController::class,'index']);
 
