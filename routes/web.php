@@ -24,7 +24,8 @@ Route::get('/home', function () {
 
 Route::get('/about', function () {
     return view ('about');
-})->middleware('check');
+});//->middleware('check');
 
-Route::get('/contact',[ContactController::class,'index']);
+//naming a route                                               route name
+Route::get('/contact',[ContactController::class,'index'])->name('con');
 
