@@ -5,8 +5,11 @@ use Illuminate\Support\Facades\Route;
 //Using the ContactController
 use App\Http\Controllers\ContactController;
 
-//Using the User Model
+//Using the User Model (Eloquent ORM)
 use App\Models\User;
+
+//Using the DB facade (for the query builder)
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +43,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //Eloquent ORM 
 
     //Getting all user data
-    $users = User::all();
+    //$users = User::all();
+
+    //Query builder
+    $users = DB::table('users')->get();
     
     //Passing data to view
     return view('dashboard', compact('users'));
