@@ -11,6 +11,9 @@ use App\Models\User;
 //Using the DB facade (for the query builder)
 use Illuminate\Support\Facades\DB;
 
+//Using the CategoryController
+use App\Http\Controllers\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +40,8 @@ Route::get('/about', function () {
 //naming a route                                               route name
 Route::get('/contact',[ContactController::class,'index'])->name('con');
 
+//Category Controller
+Route::get('/category/all',[CategoryController::class,'Allcat'])->name('all.category');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
