@@ -43,6 +43,8 @@ Route::get('/contact',[ContactController::class,'index'])->name('con');
 //Category Controller
 Route::get('/category/all',[CategoryController::class,'Allcat'])->name('all.category');
 
+Route::post('/category/add',[CategoryController::class,'AddCat'])->name('store.category');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
     //Eloquent ORM 
@@ -56,3 +58,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //Passing data to view
     return view('dashboard', compact('users'));
 })->name('dashboard');
+
+
+?>
