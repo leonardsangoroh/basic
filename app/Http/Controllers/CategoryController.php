@@ -15,9 +15,11 @@ use Auth;
 class CategoryController extends Controller
 {
     public function AllCat() {
+        //Eloquent ORM
+        //$categories = Category::all();
 
-        $categories = Category::all();
-
+        //Query builder
+        $categories = DB::table('categories')->get();
         return view('admin.category.index', compact('categories'));
     }
 
