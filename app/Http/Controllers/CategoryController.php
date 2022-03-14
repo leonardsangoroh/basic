@@ -15,8 +15,15 @@ use Auth;
 class CategoryController extends Controller
 {
     public function AllCat() {
+
+        //Query builder display user names
+        $categories = DB::table('categories')
+                        ->join('users', 'categories.user_id', 'users.id')
+                        ->select('categories.*', 'users.name')
+                        ->paginate(5);
+
         //Eloquent ORM
-        $categories = Category::paginate(5);
+        // $categories = Category::paginate(5);
 
         //Query builder
 
