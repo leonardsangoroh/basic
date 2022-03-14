@@ -16,12 +16,12 @@ class CategoryController extends Controller
 {
     public function AllCat() {
         //Eloquent ORM
-        //$categories = Category::all();
+        $categories = Category::paginate(5);
 
         //Query builder
 
         //Pagination
-        $categories = DB::table('categories')->paginate(5);
+        // $categories = DB::table('categories')->paginate(5);
         return view('admin.category.index', compact('categories'));
     }
 
