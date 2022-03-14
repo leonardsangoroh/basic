@@ -19,7 +19,9 @@ class CategoryController extends Controller
         //$categories = Category::all();
 
         //Query builder
-        $categories = DB::table('categories')->get();
+
+        //Pagination
+        $categories = DB::table('categories')->paginate(5);
         return view('admin.category.index', compact('categories'));
     }
 
