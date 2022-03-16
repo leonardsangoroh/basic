@@ -17,13 +17,13 @@ class CategoryController extends Controller
     public function AllCat() {
 
         //Query builder display user names
-        $categories = DB::table('categories')
-                        ->join('users', 'categories.user_id', 'users.id')
-                        ->select('categories.*', 'users.name')
-                        ->paginate(5);
+        // $categories = DB::table('categories')
+        //                 ->join('users', 'categories.user_id', 'users.id')
+        //                 ->select('categories.*', 'users.name')
+        //                 ->paginate(5);
 
         //Eloquent ORM
-        // $categories = Category::paginate(5);
+        $categories = Category::paginate(5);
 
         //Query builder
 
@@ -67,8 +67,25 @@ class CategoryController extends Controller
         // $category->user_id = Auth::user()->id;
         // $category->save();
 
-         return Redirect()->back()->with('success', 'Category Iserted Successfully');
+         return Redirect()->back()->with('success', 'Category Inserted Successfully');
 
         
+    }
+
+    public function Edit ($id) {
+        //Eloquent ORM
+        $categories = Category::find($id);
+
+        return view ('admin.category.edit', compact('categories'));
+    }
+
+    public function Update (Request $request, $id) {
+        //Eloquent ORM
+        $update = Category::find($id)->update([
+            'category_name' => $request->category_name,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return Redirect()->route('all.category')->with('success', 'Category Updated Successfully');
     }
 }
