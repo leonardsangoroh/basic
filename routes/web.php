@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\DB;
 //Using the CategoryController
 use App\Http\Controllers\CategoryController;
 
+//Using the BrandController
+use App\Http\Controllers\BrandController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,6 +57,11 @@ Route::get('/softdelete/category/{id}',[CategoryController::class,'SoftDelete'])
 Route::get('/category/restore/{id}',[CategoryController::class,'Restore']);
 
 Route::get('/pdelete/category/{id}',[CategoryController::class,'PDelete']);
+
+//For Brand Route
+Route::get('/pdelete/category/{id}',[CategoryController::class,'PDelete']);
+
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
