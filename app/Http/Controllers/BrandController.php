@@ -65,4 +65,51 @@ class BrandController extends Controller
 
         return view('admin.brand.edit', compact('brands'));
     }
+
+    public function Update (Request $request, $id) {
+        $validatedData = $request->validate([
+                'brand_name' => 'required|min:4',
+            ],
+            [
+                'brand_name.required' => 'Please input a brand name',
+                'brand_name.max' => 'Input a brand with less than 250 letters',
+            ]
+        ); 
+
+        //Previous image variable
+        $old_image = $request->old_image;
+
+        //Uploading image
+
+        $brand_image = $request->file('brand_image');
+
+        //Generating an auto-generated unique id
+        $name_gen = hexdec(uniqid());
+        //Image extension
+        $image_ext = strtolower($brand_image->getClientOriginalExtension());
+
+        $image_name = $name_gen.'.'.$image_ext;
+
+        $up_location = 'image/brand/';
+
+        $last_img = $up_location.$image_name;
+
+        $brand_image->move($up_location,$image_name);
+
+        //End of image upload
+
+        //Use unlink function to remove/unlink the existing image
+        unlink($old_image);
+
+        //Insert data
+
+        Brand::find($id)->update([
+            'brand_name' =>$request->brand_name,
+            'brand_image' => $last_img,
+            'created_at' => Carbon::now()
+        ]);
+
+        return Redirect()->back()->with('success', 'Brand Updated successfully');
+
+    }
 }
