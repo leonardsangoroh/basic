@@ -83,33 +83,48 @@ class BrandController extends Controller
 
         $brand_image = $request->file('brand_image');
 
-        //Generating an auto-generated unique id
-        $name_gen = hexdec(uniqid());
-        //Image extension
-        $image_ext = strtolower($brand_image->getClientOriginalExtension());
+        if($brand_image) {
+            //Generating an auto-generated unique id
+            $name_gen = hexdec(uniqid());
+            //Image extension
+            $image_ext = strtolower($brand_image->getClientOriginalExtension());
 
-        $image_name = $name_gen.'.'.$image_ext;
+            $image_name = $name_gen.'.'.$image_ext;
 
-        $up_location = 'image/brand/';
+            $up_location = 'image/brand/';
 
-        $last_img = $up_location.$image_name;
+            $last_img = $up_location.$image_name;
 
-        $brand_image->move($up_location,$image_name);
+            $brand_image->move($up_location,$image_name);
 
-        //End of image upload
+            //End of image upload
 
-        //Use unlink function to remove/unlink the existing image
-        unlink($old_image);
+            //Use unlink function to remove/unlink the existing image
+            unlink($old_image);
 
-        //Insert data
+            //Insert data
 
-        Brand::find($id)->update([
-            'brand_name' =>$request->brand_name,
-            'brand_image' => $last_img,
-            'created_at' => Carbon::now()
-        ]);
+            Brand::find($id)->update([
+                'brand_name' =>$request->brand_name,
+                'brand_image' => $last_img,
+                'created_at' => Carbon::now()
+            ]);
 
-        return Redirect()->back()->with('success', 'Brand Updated successfully');
+            return Redirect()->back()->with('success', 'Brand Updated successfully');
 
+        }
+        else {
+            //Insert data
+
+            Brand::find($id)->update([
+                'brand_name' =>$request->brand_name,
+                'created_at' => Carbon::now()
+            ]);
+
+            return Redirect()->back()->with('success', 'Brand Updated successfully');
+
+        }
+
+        
     }
 }
