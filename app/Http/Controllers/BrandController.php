@@ -8,6 +8,8 @@ use App\Models\Brand;
 
 use Illuminate\Support\Carbon;
 
+use Image;
+
 class BrandController extends Controller
 {
     public function AllBrand() {
@@ -34,17 +36,22 @@ class BrandController extends Controller
         $brand_image = $request->file('brand_image');
 
         //Generating an auto-generated unique id
-        $name_gen = hexdec(uniqid());
+        // $name_gen = hexdec(uniqid());
         //Image extension
-        $image_ext = strtolower($brand_image->getClientOriginalExtension());
+        // $image_ext = strtolower($brand_image->getClientOriginalExtension());
 
-        $image_name = $name_gen.'.'.$image_ext;
+        // $image_name = $name_gen.'.'.$image_ext;
 
-        $up_location = 'image/brand/';
+        // $up_location = 'image/brand/';
 
-        $last_img = $up_location.$image_name;
+        // $last_img = $up_location.$image_name;
 
-        $brand_image->move($up_location,$image_name);
+        // $brand_image->move($up_location,$image_name);
+
+        $name_gen = hexdec(uniqid()).'.'.$brand_image->getClientOriginalExtension();
+        Image::make($brand_image)->resize(300,200)->save('image/brand'.$name_gen);
+
+        $last_img = 'image/brand'.$name_gen;
 
         //End of image upload
 
