@@ -12,10 +12,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <div class="card">
-
-
-                        
+                    <div class="card-group">
+                        @foreach($images as $multi)
+                            <div class="col-md-4 mt-5">
+                                <div class="card">
+                                    <img src="{{ asset($multi->image) }}" alt="">
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -28,13 +32,13 @@
 
                         <div class="card-body">
                            
-                            <form action="{{ route('') }}" method="POST" enctype = "multipart/form-data">
+                            <form action="{{ route('store.image') }}" method="POST" enctype = "multipart/form-data">
                                 @csrf
                                
 
                                 <div class="mb-3">
-                                    <label for="image" class="form-label">Brand Image</label>
-                                    <input name="image" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <label for="image" class="form-label">Multiple Image</label>
+                                    <input name="image[]" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" multiple = "">
                                     
                                     @error('brand_image')
                                         <span class="text-danger">

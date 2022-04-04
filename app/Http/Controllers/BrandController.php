@@ -51,9 +51,9 @@ class BrandController extends Controller
         // $brand_image->move($up_location,$image_name);
 
         $name_gen = hexdec(uniqid()).'.'.$brand_image->getClientOriginalExtension();
-        Image::make($brand_image)->resize(300,200)->save('image/brand'.$name_gen);
+        Image::make($brand_image)->resize(300,200)->save('image/brand/'.$name_gen);
 
-        $last_img = 'image/brand'.$name_gen;
+        $last_img = 'image/brand/'.$name_gen;
 
         //End of image upload
 
@@ -159,5 +159,34 @@ class BrandController extends Controller
         $images = Multipic::all();
 
         return view('admin.multipic.index', compact('images'));
+    }
+
+    public function StoreImage(Request $request) {
+        //Uploading image
+
+        $image = $request->file('image');
+
+        //For each loop for traversing the multiple images
+        foreach($image as $multi_img) {
+
+            $name_gen = hexdec(uniqid()).'.'.$multi_img->getClientOriginalExtension();
+            Image::make($multi_img)->resize(300,300)->save('image/multi/'.$name_gen);
+
+            $last_img = 'image/multi/'.$name_gen;
+
+            //End of image upload
+
+            //Insert data
+
+            Multipic::insert([
+            
+                'image' => $last_img,
+                'created_at' => Carbon::now()
+            ]);
+
+        }
+
+        return Redirect()->back()->with('success', 'Brand inserted successfully');
+
     }
 }
