@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Brand;
 
+use App\Models\Multipic;
+
 use Illuminate\Support\Carbon;
 
 use Image;
@@ -146,5 +148,16 @@ class BrandController extends Controller
         Brand::find($id)->delete();
 
         return Redirect()->back()->with('success', 'Brand Deleted successfully');
+    }
+
+
+
+    // For the Multi Image All Method
+
+    public function MultiPic () {
+
+        $images = Multipic::all();
+
+        return view('admin.multipic.index', compact('images'));
     }
 }
